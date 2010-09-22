@@ -29,7 +29,7 @@ sub base : Chained('/'): PathPart('pastes'): CaptureArgs(0)
 	$c->stash(pastes_rs => $c->model('PasteDB::Paste'));
 }
 
-sub index :Chained('base') :Path :Args(0)
+sub index :Chained('base') :PathPart('') :Args(0)
 {
 	my ($self, $c) = @_;
 	my $pastes_rs = $c->stash->{pastes_rs};
