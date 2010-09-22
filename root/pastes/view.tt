@@ -1,0 +1,20 @@
+<h1>Viewing Paste</h1>
+
+<h2>By: [% paste.name %]</h2>
+
+<div class="paste">
+[% paste.paste %]
+</div>
+
+<form id="repaste" method="post" action="[% c.uri_for(c.controller('pastes').action_for('add')) %]">
+	<label for="name">
+		<span>Name</span>
+		<input type="text" id="name" name="name" value="" />
+	</label>
+
+        <label for="paste_contents">
+                <textarea id="paste_contents" name="paste_contents" rows="20" cols="90">[% paste.paste %]</textarea>
+        </label>
+
+	<input type="submit" name="submit" id="submit" value="Repaste" />
+</form>

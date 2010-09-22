@@ -1,0 +1,8 @@
+<h2>Pastes</h2>
+ 
+<ul>
+[% WHILE (paste = pastes_rs.next) %]
+        <li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
+[% END %]
+</ul>
+
