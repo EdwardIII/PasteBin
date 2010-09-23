@@ -71,5 +71,8 @@ __PACKAGE__->add_columns('last_modified',
 	}
 );
 
+ __PACKAGE__->load_components(qw{Helper::Row::ToJSON}); # provides TO_JSON 
+# See http://search.cpan.org/~frew/DBIx-Class-Helpers-2.004000/lib/DBIx/Class/Helper/Row/ToJSON.pm
+
 __PACKAGE__->meta->make_immutable;
 1;

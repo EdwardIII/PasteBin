@@ -49,7 +49,7 @@ sub json : Local # Path('json'): Args(0)
 	
 	#$c->forward('index');
 	my $pastes_rs = $c->model('PasteDB::Paste');
-	$c->stash(result => $pastes_rs);
+	$c->stash(result => $pastes_rs->TO_JSON);
 	$c->stash->{current_view} = 'JSON';
 
 	
