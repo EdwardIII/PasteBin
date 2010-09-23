@@ -43,11 +43,13 @@ sub index :Path :Args(0) {
     #$c->response->body( $c->welcome_message );
 }
 
-sub json : Path('json'): Args(0)
+sub json : Local # Path('json'): Args(0)
 {
 	my ( $self, $c ) = @_;
 	
-	#$c->forward('pastes');
+	#$c->forward('index');
+	my $pastes_rs = $c->model('PasteDB::Paste');
+	$c->stash(result => $pastes_rs);
 	$c->stash->{current_view} = 'JSON';
 
 	
