@@ -74,5 +74,25 @@ __PACKAGE__->add_columns('last_modified',
  __PACKAGE__->load_components(qw{Helper::Row::ToJSON}); # provides TO_JSON 
 # See http://search.cpan.org/~frew/DBIx-Class-Helpers-2.004000/lib/DBIx/Class/Helper/Row/ToJSON.pm
 
+# mst suggests:
+#around TO_JSON => sub { my ($orig, $self) = (shift, shift); <detect DateTime objects and strftime them here> }
+# khisanth's suggestion, use HashInflate is a quick way of doing this - but then the code that's returned gets 
+# defined by the database and therefore could break if the db backend gets changed
+around TO_JSON => sub { 
+	my ($orig, $self) = (shift, shift); 
+	#<detect DateTime objects and strftime them here> 
+	use Data::Dumper;
+	warn Dumper($self);
+
+	my %result = map { 
+		$_ => 
+			$self->$_->can('isa') && $self->$_->isa('DateTime') ? $self->$_->datetime() : $self->$_
+		} @{$self->serializable_columns};
+
+	return \%result;
+};	
+
+
+
 __PACKAGE__->meta->make_immutable;
 1;
