@@ -6,6 +6,4 @@ CREATE TABLE pastes (
 	paste TEXT,
 	last_modified DATETIME
 );
-DELETE FROM sqlite_sequence;
-INSERT INTO "sqlite_sequence" VALUES('pastes',22);
 COMMIT;

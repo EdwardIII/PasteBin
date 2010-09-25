@@ -72,26 +72,35 @@ __PACKAGE__->add_columns('last_modified',
 );
 
  __PACKAGE__->load_components(qw{Helper::Row::ToJSON}); # provides TO_JSON 
-# See http://search.cpan.org/~frew/DBIx-Class-Helpers-2.004000/lib/DBIx/Class/Helper/Row/ToJSON.pm
 
-# mst suggests:
-#around TO_JSON => sub { my ($orig, $self) = (shift, shift); <detect DateTime objects and strftime them here> }
-# khisanth's suggestion, use HashInflate is a quick way of doing this - but then the code that's returned gets 
-# defined by the database and therefore could break if the db backend gets changed
+
+# Add the additional is_serializable attribute onto these existing columns
+__PACKAGE__->add_columns('name',
+	{ %{__PACKAGE__->column_info('name')},
+	is_serializable   => 1,
+	}
+);
+
+__PACKAGE__->add_columns('paste',
+	{ %{__PACKAGE__->column_info('paste')},
+	is_serializable   => 1,
+	}
+);
+
+# Override
 around TO_JSON => sub { 
 	my ($orig, $self) = (shift, shift); 
-	#<detect DateTime objects and strftime them here> 
-	use Data::Dumper;
-	warn Dumper($self);
 
 	use Scalar::Util qw(blessed);
 	
-	my %result = map { 
-		$_ => 
-			blessed($self->$_) && $self->$_->isa('DateTime') ? $self->$_->datetime() : $self->$_
-		} @{$self->serializable_columns};
+	# Call base for this method
+	my $result = $self->$orig;
 
-	return \%result;
+	%{$result} = 	map { 
+			$_ => 
+				blessed($result->{$_}) && $result->{$_}->isa('DateTime') ? $result->{$_}->datetime() : $result->{$_}
+		} keys( %{$result} );
+	return $result;
 };	
 
 

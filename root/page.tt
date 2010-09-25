@@ -9,15 +9,18 @@
 <script type="text/javascript" src="/static/scripts/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-   $("a.close-list").click(function(event){
-	event.preventDefault();
-	$("ul.recent-list").hide("slow");
-   });
+	$("a.close-list").click(function(event){
+	     event.preventDefault();
+	     $("ul.recent-list").hide("slow");
+	});
+
+	$("div.scratch").innerHTML="hello";
  });
 </script>
 </head>
 <body>
 	<h1><a href="/">Paste Bin</a></h1>
+		<div class="scratch"></div>
 	<div id="content">
 		[%# Status and error messages %]
 		<span class="message">[% status_msg %]</span>
