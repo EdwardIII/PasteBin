@@ -84,9 +84,11 @@ around TO_JSON => sub {
 	use Data::Dumper;
 	warn Dumper($self);
 
+	use Scalar::Util qw(blessed);
+	
 	my %result = map { 
 		$_ => 
-			$self->$_->can('isa') && $self->$_->isa('DateTime') ? $self->$_->datetime() : $self->$_
+			blessed($self->$_) && $self->$_->isa('DateTime') ? $self->$_->datetime() : $self->$_
 		} @{$self->serializable_columns};
 
 	return \%result;
