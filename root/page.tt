@@ -32,11 +32,11 @@ $(document).ready(function(){
 						$('ul.recent-list:first').fadeIn('fast');
 						dupes['id' + result.id] = 1;
 						
-						if($('ul.recent-list').children().length > 2) $('ul.recent-list').children().last().remove();
+						if($('ul.recent-list').children().length > 5) $('ul.recent-list').children().last().remove();
 					}
 				});
 
-				setTimeout(function() { ajax_request(); }, 5000); 
+				setTimeout(function() { ajax_request(); }, 15000); 
 			}
 			
 		});
