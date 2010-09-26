@@ -1,12 +1,12 @@
-<h1>Viewing Paste</h1>
-
-<h2>By: [% paste.name %]</h2>
+<h1>Paste By: [% paste.name | html %]</h1>
 
 <div class="paste">
-[% paste.paste %]
+[% paste.paste | html %]
 </div>
 
 <form id="repaste" method="post" action="[% c.uri_for(c.controller('pastes').action_for('add')) %]">
+<legend>Repaste</legend>
+<fieldset>
 	<label for="name">
 		<span>Name</span>
 		<input type="text" id="name" name="name" value="" />
@@ -17,4 +17,5 @@
         </label>
 
 	<input type="submit" name="submit" id="submit" value="Repaste" />
+</fieldset>
 </form>

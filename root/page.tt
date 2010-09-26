@@ -7,62 +7,32 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="/static/styles/main.css" />
 <script type="text/javascript" src="/static/scripts/jquery.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-
-	var dupes = {}; 
-	$('ul.recent-list').empty();
-
-	function ajax_request(data)
-	{
-
-		$.ajax({
-			url: '/json',
-			dataType: 'json',
-			error: function(data) {
-				console.log("Failed to load json datasource");
-				return 0;
-			},
-			success: function(data)	{
-				$.each(data.results, function(i, result){
-					if(dupes['id' + result.id] == undefined)
-					{
-						$('ul.recent-list').prepend('<li><a href="/pastes/' + result.id + '/view">' 
-							+ result.name + '</a></li>').hide();
-						$('ul.recent-list:first').fadeIn('fast');
-						dupes['id' + result.id] = 1;
-						
-						if($('ul.recent-list').children().length > 5) $('ul.recent-list').children().last().remove();
-					}
-				});
-
-				setTimeout(function() { ajax_request(); }, 15000); 
-			}
-			
-		});
-	}
-	 // 15 seconds: 15000
-	ajax_request();
-})
-</script>
+<script type="text/javascript" src="/static/scripts/load_recent_pastes.js"></script>
 </head>
 <body>
-	<h1><a href="/">Paste Bin</a></h1>
+	<div id="header">
+		<h1><a href="/">PasteBin</a></h1>
+		<ul id="navigation">
+			<li><a href="/">New</a></li>
+			<li><a href="/pastes">Recent</a></li>
+		</ul>
+	</div>
 
-	<h3>Recent Pasters</h3>
-
-	<ul class="recent-list">
-	[% WHILE (paste = pastes_sorted.next) %]
-		<li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
-	[% END %]
-	</ul>
-
-	<div id="content">
+	<div id="content" class="clear">
 		[%# Status and error messages %]
 		<span class="message">[% status_msg %]</span>
 		<span class="error">[% error_msg %]</span>
 		[%# This is where TT will stick all of your template's contents. -%]
 		[% content %]
 	</div><!-- end content -->
+
+	<div class="recent-list-container">
+		<h3>Recent Pastes</h3>
+		<ul class="recent-list">
+		[% WHILE (paste = pastes_sorted.next) %]
+			<li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
+		[% END %]
+		</ul>
+	</div>
 </body>
 </html>

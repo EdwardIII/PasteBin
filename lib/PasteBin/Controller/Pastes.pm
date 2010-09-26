@@ -33,7 +33,13 @@ sub index :Chained('base') :PathPart('') :Args(0)
 {
 	my ($self, $c) = @_;
 	my $pastes_rs = $c->stash->{pastes_rs};
-	$c->log->debug(Dumper($pastes_rs));
+
+	my $pastes_sorted = $pastes_rs->search(undef, 
+		{ 
+			order_by => { -desc => 'last_modified' }, 
+			rows => 10 
+		});
+	$c->stash('pastes_sorted' => $pastes_sorted);
 }
 
 sub add : Chained('base'): PathPart('add'): Args(0)

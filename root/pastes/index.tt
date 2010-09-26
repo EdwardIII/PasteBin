@@ -1,8 +1,9 @@
 <h2>Pastes</h2>
  
-<ul>
-[% WHILE (paste = pastes_rs.next) %]
-        <li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
+<dl>
+[% WHILE (paste = pastes_sorted.next) %]
+        <dt><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name | html %]</a></dt>
+	<dd>[% paste.paste | html %]</dd>
 [% END %]
-</ul>
+</dl>
 

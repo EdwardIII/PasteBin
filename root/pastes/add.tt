@@ -1,4 +1,3 @@
-<h1>Add</h1>
 <form method="post" action="[% c.uri_for(c.controller('Pastes').action_for('add')) %]">
 
 	<div>
