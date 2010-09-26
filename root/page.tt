@@ -9,18 +9,54 @@
 <script type="text/javascript" src="/static/scripts/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("a.close-list").click(function(event){
-	     event.preventDefault();
-	     $("ul.recent-list").hide("slow");
-	});
 
-	$("div.scratch").innerHTML="hello";
- });
+	var dupes = {}; 
+	$('ul.recent-list').empty();
+
+	function ajax_request(data)
+	{
+
+		$.ajax({
+			url: '/json',
+			dataType: 'json',
+			error: function(data) {
+				console.log("Failed to load json datasource");
+				return 0;
+			},
+			success: function(data)	{
+				$.each(data.results, function(i, result){
+					if(dupes['id' + result.id] == undefined)
+					{
+						$('ul.recent-list').prepend('<li><a href="/pastes/' + result.id + '/view">' 
+							+ result.name + '</a></li>').hide();
+						$('ul.recent-list:first').fadeIn('fast');
+						dupes['id' + result.id] = 1;
+						
+						if($('ul.recent-list').children().length > 2) $('ul.recent-list').children().last().remove();
+					}
+				});
+
+				setTimeout(function() { ajax_request(); }, 5000); 
+			}
+			
+		});
+	}
+	 // 15 seconds: 15000
+	ajax_request();
+})
 </script>
 </head>
 <body>
 	<h1><a href="/">Paste Bin</a></h1>
-		<div class="scratch"></div>
+
+	<h3>Recent Pasters</h3>
+
+	<ul class="recent-list">
+	[% WHILE (paste = pastes_sorted.next) %]
+		<li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
+	[% END %]
+	</ul>
+
 	<div id="content">
 		[%# Status and error messages %]
 		<span class="message">[% status_msg %]</span>

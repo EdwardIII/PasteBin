@@ -34,6 +34,6 @@ sub encode_json {
       $encoder->encode($data);
 }
 
-__PACKAGE__->config( { expose_stash => [ qw/result/ ] } );
+__PACKAGE__->config( { expose_stash => [ qw/results/ ] } );
 
 1;
