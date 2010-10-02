@@ -9,7 +9,9 @@ __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     WRAPPER => 'page.tt',
     render_die => 1,
+	expose_methods => [ qw/truncate_text/ ],
 );
+
 
 =head1 NAME
 
@@ -34,4 +36,12 @@ it under the same terms as Perl itself.
 
 =cut
 
+sub truncate_text
+{
+	my ($self, undef, $text, $chars) = @_;
+	if(!defined($chars)) { $chars = 200; }
+	$text = substr($text, 0, 100);	
+	return $text;
+
+}
 1;

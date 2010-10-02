@@ -35,7 +35,7 @@ sub index :Path :Args(0) {
 	my $pastes_sorted = $pastes_rs->search(undef, 
 		{ 
 			order_by => { -desc => 'last_modified' }, 
-			rows => 10 
+			rows => 30 
 		}
 	);
 	$c->stash(pastes_sorted => $pastes_sorted);

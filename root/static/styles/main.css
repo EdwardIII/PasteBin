@@ -98,15 +98,23 @@ body {
 	margin: 0.4em 0;
 }
 
-div.recent-list-container
-{
+div.recent-list-container {
 	/* float: right; */
 	float: left;
 	width: 20%;
 	min-height: 20px;
 	
 }
-.clear
-{
+
+dl.paste {
+	margin-bottom: 2em;
+}
+dl.paste dt {
+	font-weight: bold;
+}
+dl.paste dd {
+	margin-left: 2em;
+}
+.clear {
 	clear: both;
 }

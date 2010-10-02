@@ -5,7 +5,7 @@
 </div>
 
 <form id="repaste" method="post" action="[% c.uri_for(c.controller('pastes').action_for('add')) %]">
-<legend>Repaste</legend>
+<legend>Repaste | <a href="[% c.uri_for(c.controller('pastes').action_for('add')) %]">Clear</a></legend>
 <fieldset>
 	<label for="name">
 		<span>Name</span>

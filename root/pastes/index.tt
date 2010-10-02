@@ -1,9 +1,10 @@
 <h2>Pastes</h2>
  
-<dl>
 [% WHILE (paste = pastes_sorted.next) %]
+<dl class="paste">
         <dt><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name | html %]</a></dt>
-	<dd>[% paste.paste | html %]</dd>
-[% END %]
+	<dd>[% truncate_text('beetles') %]</dd>
+	<dd>[% paste.last_modified | html %]</dd>
 </dl>
+[% END %]
 

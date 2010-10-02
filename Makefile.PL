@@ -9,6 +9,9 @@ use Module::Install::Catalyst; # Complain loudly if you don't have
 name 'PasteBin';
 all_from 'lib/PasteBin.pm';
 
+requires 'Catalyst::View::JSON';
+requires 'MooseX::NonMoose';
+requires 'DBIx::Class::Helper::Row::ToJSON';
 requires 'Scalar::Util';
 requires 'DBIx::Class::Helper::Row::ToJSON';
 requires 'Catalyst::Runtime' => '5.80027';

@@ -11,6 +11,7 @@
 		<textarea id="paste_contents" name="paste_contents" rows="10" cols="30"></textarea>
 	</label>
 	</div>
+
 	<input type="submit" name="submit" id="submit" value="Paste" />
 </form>
 
