@@ -1,7 +1,9 @@
 <h1>Paste By: [% paste.name | html %]</h1>
 
 <div class="paste">
+<pre>
 [% paste.paste | html %]
+</pre>
 </div>
 
 <form id="repaste" method="post" action="[% c.uri_for(c.controller('pastes').action_for('add')) %]">
