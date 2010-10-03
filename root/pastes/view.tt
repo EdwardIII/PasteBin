@@ -1,3 +1,4 @@
+[% title = 'View/Repaste' %]
 <h1>Paste By: [% paste.name | html %]</h1>
 
 <div class="paste">
@@ -7,17 +8,18 @@
 </div>
 
 <form id="repaste" method="post" action="[% c.uri_for(c.controller('pastes').action_for('add')) %]">
-<legend>Repaste | <a href="[% c.uri_for(c.controller('pastes').action_for('add')) %]">Clear</a></legend>
-<fieldset>
-	<label for="name">
-		<span>Name</span>
-		<input type="text" id="name" name="name" value="" />
-	</label>
+	<fieldset>
+		<legend>Repaste | <a href="[% c.uri_for(c.controller('pastes').action_for('add')) %]">Clear</a></legend>
 
-        <label for="paste_contents">
-                <textarea id="paste_contents" name="paste_contents" rows="20" cols="90">[% paste.paste %]</textarea>
-        </label>
+		<label for="name">
+			<span>Name</span>
+			<input type="text" id="name" name="name" value="" />
+		</label>
 
-	<input type="submit" name="submit" id="submit" value="Repaste" />
-</fieldset>
+		<label for="paste_contents">
+			<textarea id="paste_contents" name="paste_contents" rows="20" cols="90">[% paste.paste %]</textarea>
+		</label>
+
+		<input type="submit" name="submit" id="submit" value="Repaste" />
+	</fieldset>
 </form>

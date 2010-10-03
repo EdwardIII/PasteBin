@@ -3,7 +3,7 @@
 	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB">
 <head>
-<title>[% title %]</title>
+<title>[% title || 'PasteBin' %]</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link type="text/css" rel="stylesheet" href="/static/styles/main.css" />
 <script type="text/javascript" src="/static/scripts/jquery.js"></script>
@@ -19,17 +19,13 @@
 	</div>
 
 	<div id="content" class="clear">
-		[%# Status and error messages %]
-		<span class="message">[% status_msg %]</span>
-		<span class="error">[% error_msg %]</span>
-		[%# This is where TT will stick all of your template's contents. -%]
 		[% content %]
 	</div><!-- end content -->
 
 	<div class="recent-list-container">
 		<h3>Recent Pastes</h3>
 		<ul class="recent-list">
-		[% WHILE (paste = pastes_sorted.next) %]
+		[% FOR paste IN pastes_sorted %]
 			<li><a href="[% c.uri_for(c.controller('pastes').action_for('view'), [paste.id]) %]">[% paste.name %]</a></li>
 		[% END %]
 		</ul>

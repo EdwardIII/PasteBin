@@ -1,3 +1,4 @@
+[% title = 'New Paste' %]
 <form method="post" action="[% c.uri_for(c.controller('Pastes').action_for('add')) %]">
 
 	<div>

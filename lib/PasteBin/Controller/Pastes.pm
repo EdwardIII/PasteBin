@@ -34,12 +34,12 @@ sub index :Chained('base') :PathPart('') :Args(0)
 	my ($self, $c) = @_;
 	my $pastes_rs = $c->stash->{pastes_rs};
 
-	my $pastes_sorted = $pastes_rs->search(undef, 
+	my @pastes = $pastes_rs->search(undef, 
 		{ 
 			order_by => { -desc => 'last_modified' }, 
-			rows => 10 
+			rows => 60 
 		});
-	$c->stash('pastes_sorted' => $pastes_sorted);
+	$c->stash('pastes' => \@pastes);
 }
 
 sub add : Chained('base'): PathPart('add'): Args(0)
@@ -52,7 +52,7 @@ sub add : Chained('base'): PathPart('add'): Args(0)
 
 		my $new_paste = $pastes_rs->create(
 			{
-				name => $params->{name},
+				name => $params->{name} || 'Unknown cat',
 				paste => $params->{paste_contents}
 			}
 		);

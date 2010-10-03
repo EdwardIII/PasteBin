@@ -91,11 +91,12 @@ body {
 	margin: 0.4em 0;
 }
 
-#content div.paste {
+#content div.paste pre {
 	background-color: lightgray;
 	width: 98%;
 	padding: 0.2em;
 	margin: 0.4em 0;
+	overflow: scroll;
 }
 
 div.recent-list-container {

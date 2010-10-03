@@ -27,20 +27,24 @@ The root page (/)
 =cut
 use Data::Dumper;
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-
+sub auto :Private {
+	my ($self, $c) = @_;
+	
 	my $pastes_rs = $c->model('PasteDB::Paste');
 
-	my $pastes_sorted = $pastes_rs->search(undef, 
+	my @pastes_sorted = $pastes_rs->search(undef, 
 		{ 
 			order_by => { -desc => 'last_modified' }, 
 			rows => 30 
 		}
 	);
-	$c->stash(pastes_sorted => $pastes_sorted);
-    # Hello World
-    #$c->response->body( $c->welcome_message );
+	
+	$c->stash(pastes_sorted => \@pastes_sorted);
+
+}
+
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
 }
 
 sub json : Local # Path('json'): Args(0)

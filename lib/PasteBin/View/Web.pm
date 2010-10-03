@@ -10,6 +10,7 @@ __PACKAGE__->config(
     WRAPPER => 'page.tt',
     render_die => 1,
 	expose_methods => [ qw/truncate_text/ ],
+	STRICT => 1,
 );
 
 
@@ -39,9 +40,16 @@ it under the same terms as Perl itself.
 sub truncate_text
 {
 	my ($self, undef, $text, $chars) = @_;
-	if(!defined($chars)) { $chars = 200; }
-	$text = substr($text, 0, 100);	
-	return $text;
+	#if(!defined($chars)) { $chars = 200; }
+	$chars ||= 200;
 
+	if(length($text) > $chars){
+
+		$text = substr($text, 0, 100);	
+		$text =~ s/\s+$//;
+		$text .= '...';
+	}
+
+	return $text;
 }
 1;
