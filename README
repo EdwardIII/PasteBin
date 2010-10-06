@@ -1,1 +1,3 @@
 Run script/pastebin_server.pl to test the application.
+
+To deploy a brand-spanking new database, run: perl ./script/deploy.pl. This creates a new database in db/pastebin.db (SQLite 3 format).
