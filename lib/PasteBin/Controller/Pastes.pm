@@ -50,6 +50,7 @@ sub add : Chained('base'): PathPart('add'): Args(0)
 		my $params = $c->req->params;
 		my $pastes_rs = $c->stash->{pastes_rs};
 
+		$c->detach('/pastes/no_javascript') unless ($params->{'auth'} eq 'cornholio');
 		my $new_paste = $pastes_rs->create(
 			{
 				name => $params->{name} || 'Unknown cat',
@@ -64,7 +65,12 @@ sub add : Chained('base'): PathPart('add'): Args(0)
 		);
 	}
 }
-
+sub no_javascript: Local
+{
+	my ( $self, $c ) = @_;
+	$c->response->body( 'Sorry JavaScript is required to use this pastebin.' );
+	$c->response->status(406);
+}
 sub paste : Chained('base'): PathPart(''): CaptureArgs(1)
 {
 	my ($self, $c, $paste_id) = @_;	
