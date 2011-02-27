@@ -1,6 +1,7 @@
 [% title = 'New Paste' %]
-<form method="post" action="[% c.uri_for(c.controller('Pastes').action_for('add')) %]">
 
+<form method="post" action="[% c.uri_for(c.controller('Pastes').action_for('add')) %]">
+	<input type="hidden" name="auth" id="auth" value="beavis" />
 	<div>
 	<label for="name">
 		Name:
@@ -15,3 +16,9 @@
 	<input type="submit" name="submit" id="submit" value="Paste" />
 </form>
 
+<script type="text/javascript"> 
+//<![CDATA[
+$('input[name=auth]').val('cornholio');
+$('input[name=name]').focus();
+//]]>
+</script> 
